@@ -337,6 +337,27 @@
         #send-button:hover {
             background-color: #45a049;
         }
+
+        .message {
+            margin-bottom: 10px;
+            padding: 5px 10px;
+            border-radius: 5px;
+        }
+
+        .message.self {
+            background-color: #e1f5fe;
+            align-self: flex-end;
+        }
+
+        .message.other {
+            background-color: #f0f0f0;
+            align-self: flex-start;
+        }
+
+        .username {
+            font-weight: bold;
+            margin-right: 5px;
+        }
         </style>
     </div>
     <div id="feature3-js" class="corner-button copy-js" onclick="copyToClipboard('feature3-js', 'js')">
@@ -347,9 +368,33 @@
             const messageInput = document.getElementById('message-input');
             const sendButton = document.getElementById('send-button');
 
-            function addMessage(message, sender) {
+            // Simulated WebSocket connection
+            const socket = {
+                send: (message) => {
+                    // Simulate server processing and broadcasting
+                    setTimeout(() => {
+                        receiveMessage(JSON.parse(message));
+                    }, Math.random() * 1000);
+                }
+            };
+
+            let username = prompt("Enter your username:") || "Anonymous";
+
+            function addMessage(message, sender, isSelf) {
                 const messageElement = document.createElement('div');
-                messageElement.textContent = `${sender}: ${message}`;
+                messageElement.classList.add('message');
+                messageElement.classList.add(isSelf ? 'self' : 'other');
+                
+                const usernameSpan = document.createElement('span');
+                usernameSpan.classList.add('username');
+                usernameSpan.textContent = sender + ":";
+                
+                const messageContent = document.createElement('span');
+                messageContent.textContent = message;
+                
+                messageElement.appendChild(usernameSpan);
+                messageElement.appendChild(messageContent);
+                
                 chatMessages.appendChild(messageElement);
                 chatMessages.scrollTop = chatMessages.scrollHeight;
             }
@@ -357,13 +402,19 @@
             function sendMessage() {
                 const message = messageInput.value.trim();
                 if (message) {
-                    addMessage(message, 'You');
+                    const messageObj = {
+                        sender: username,
+                        content: message
+                    };
+                    socket.send(JSON.stringify(messageObj));
+                    addMessage(message, username, true);
                     messageInput.value = '';
-                    // Here you would typically send the message to other players
-                    // For this example, we'll simulate receiving a response
-                    setTimeout(() => {
-                        addMessage('Hello there!', 'Player 2');
-                    }, 1000);
+                }
+            }
+
+            function receiveMessage(messageObj) {
+                if (messageObj.sender !== username) {
+                    addMessage(messageObj.content, messageObj.sender, false);
                 }
             }
 
@@ -373,6 +424,26 @@
                     sendMessage();
                 }
             });
+
+            // Simulate other users joining and sending messages
+            const otherUsers = ['Alice', 'Bob', 'Charlie'];
+            const randomMessages = [
+                "Hello everyone!",
+                "How's it going?",
+                "Nice to meet you all!",
+                "What's new?",
+                "Great game, isn't it?"
+            ];
+
+            function simulateOtherUsers() {
+                setInterval(() => {
+                    const randomUser = otherUsers[Math.floor(Math.random() * otherUsers.length)];
+                    const randomMessage = randomMessages[Math.floor(Math.random() * randomMessages.length)];
+                    receiveMessage({sender: randomUser, content: randomMessage});
+                }, 5000 + Math.random() * 5000);
+            }
+
+            simulateOtherUsers();
         });
         </script>
     </div>
@@ -482,6 +553,7 @@
                 <span id="player-name">Player 1</span>
                 <span id="player-score">Score: 0</span>
             </div>
+            <div id="other-players"></div>
         </div>
     </div>
     <div id="feature9-css" class="corner-button copy-css" onclick="copyToClipboard('feature9-css', 'css')">
@@ -527,6 +599,18 @@
             margin-top: 10px;
             font-weight: bold;
         }
+
+        #other-players {
+            margin-top: 10px;
+        }
+
+        .other-player {
+            display: inline-block;
+            margin-right: 10px;
+            padding: 5px;
+            background-color: #f0f0f0;
+            border-radius: 3px;
+        }
         </style>
     </div>
     <div id="feature9-js" class="corner-button copy-js" onclick="copyToClipboard('feature9-js', 'js')">
@@ -536,44 +620,115 @@
             const gameGrid = document.getElementById('game-grid');
             const playerName = document.getElementById('player-name');
             const playerScore = document.getElementById('player-score');
+            const otherPlayersContainer = document.getElementById('other-players');
 
-            let playerPosition = { x: 0, y: 0 };
-            let score = 0;
+            let players = {};
+            let currentPlayer = {
+                id: Math.random().toString(36).substr(2, 9),
+                name: `Player${Math.floor(Math.random() * 1000)}`,
+                position: { x: 0, y: 0 },
+                score: 0
+            };
 
-            // Create grid
-            for (let i = 0; i < 100; i++) {
-                const cell = document.createElement('div');
-                cell.classList.add('grid-cell');
-                gameGrid.appendChild(cell);
-            }
+            // Simulated WebSocket connection
+            const socket = {
+                send: (message) => {
+                    // Simulate server processing and broadcasting
+                    setTimeout(() => {
+                        broadcastMessage(JSON.parse(message));
+                    }, Math.random() * 100);
+                }
+            };
 
-            // Create player sprite
-            const playerSprite = document.createElement('div');
-            playerSprite.classList.add('player-sprite');
-            playerSprite.style.backgroundImage = 'url("data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 100 100\'%3E%3Ccircle cx=\'50\' cy=\'50\' r=\'45\' fill=\'%234CAF50\'/%3E%3Cpath d=\'M30 70 Q50 90 70 70\' stroke=\'%23FFF\' stroke-width=\'5\' fill=\'none\'/%3E%3Ccircle cx=\'35\' cy=\'40\' r=\'5\' fill=\'%23FFF\'/%3E%3Ccircle cx=\'65\' cy=\'40\' r=\'5\' fill=\'%23FFF\'/%3E%3C/svg%3E")';
-            gameGrid.children[0].appendChild(playerSprite);
-
-            // Move player
-            function movePlayer(dx, dy) {
-                const newX = Math.max(0, Math.min(9, playerPosition.x + dx));
-                const newY = Math.max(0, Math.min(9, playerPosition.y + dy));
-                
-                if (newX !== playerPosition.x || newY !== playerPosition.y) {
-                    playerPosition = { x: newX, y: newY };
-                    const newCell = gameGrid.children[newY * 10 + newX];
-                    newCell.appendChild(playerSprite);
-                    score++;
-                    playerScore.textContent = `Score: ${score}`;
+            function createGrid() {
+                for (let i = 0; i < 100; i++) {
+                    const cell = document.createElement('div');
+                    cell.classList.add('grid-cell');
+                    gameGrid.appendChild(cell);
                 }
             }
+
+            function createPlayerSprite(player) {
+                const sprite = document.createElement('div');
+                sprite.classList.add('player-sprite');
+                sprite.id = `player-${player.id}`;
+                sprite.style.backgroundImage = `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='45' fill='%23${Math.floor(Math.random()*16777215).toString(16)}'/%3E%3Cpath d='M30 70 Q50 90 70 70' stroke='%23FFF' stroke-width='5' fill='none'/%3E%3Ccircle cx='35' cy='40' r='5' fill='%23FFF'/%3E%3Ccircle cx='65' cy='40' r='5' fill='%23FFF'/%3E%3C/svg%3E")`;
+                return sprite;
+            }
+
+            function updatePlayerPosition(player) {
+                const sprite = document.getElementById(`player-${player.id}`);
+                if (sprite) {
+                    const cell = gameGrid.children[player.position.y * 10 + player.position.x];
+                    cell.appendChild(sprite);
+                }
+            }
+
+            function movePlayer(player, dx, dy) {
+                const newX = Math.max(0, Math.min(9, player.position.x + dx));
+                const newY = Math.max(0, Math.min(9, player.position.y + dy));
+                
+                if (newX !== player.position.x || newY !== player.position.y) {
+                    player.position = { x: newX, y: newY };
+                    player.score++;
+                    updatePlayerPosition(player);
+                    updateScoreDisplay();
+                    socket.send(JSON.stringify({type: 'playerMove', player: currentPlayer}));
+                }
+            }
+
+            function updateScoreDisplay() {
+                playerScore.textContent = `Score: ${currentPlayer.score}`;
+            }
+
+            function updateOtherPlayersDisplay() {
+                otherPlayersContainer.innerHTML = '';
+                for (let id in players) {
+                    if (id !== currentPlayer.id) {
+                        const playerDiv = document.createElement('div');
+                        playerDiv.classList.add('other-player');
+                        playerDiv.textContent = `${players[id].name}: ${players[id].score}`;
+                        otherPlayersContainer.appendChild(playerDiv);
+                    }
+                }
+            }
+
+            function broadcastMessage(message) {
+                switch(message.type) {
+                    case 'playerMove':
+                        const movedPlayer = message.player;
+                        if (movedPlayer.id !== currentPlayer.id) {
+                            players[movedPlayer.id] = movedPlayer;
+                            updatePlayerPosition(movedPlayer);
+                            updateOtherPlayersDisplay();
+                        }
+                        break;
+                    case 'newPlayer':
+                        if (message.player.id !== currentPlayer.id) {
+                            players[message.player.id] = message.player;
+                            const newSprite = createPlayerSprite(message.player);
+                            gameGrid.appendChild(newSprite);
+                            updatePlayerPosition(message.player);
+                            updateOtherPlayersDisplay();
+                        }
+                        break;
+                }
+            }
+
+            createGrid();
+            const currentSprite = createPlayerSprite(currentPlayer);
+            gameGrid.appendChild(currentSprite);
+            updatePlayerPosition(currentPlayer);
+            playerName.textContent = currentPlayer.name;
+            updateScoreDisplay();
 
             // Keyboard controls
             document.addEventListener('keydown', (e) => {
                 switch(e.key) {
-                    case 'ArrowUp': movePlayer(0, -1); break;
-                    case 'ArrowDown': movePlayer(0, 1); break;
-                    case 'ArrowLeft': movePlayer(-1, 0); break;
-                    case 'ArrowRight': movePlayer(1, 0); break;
+                    case 'ArrowUp': movePlayer(currentPlayer, 0, -1); break;
+                    case 'ArrowDown': movePlayer(currentPlayer, 0, 1); break;
+                    case 'ArrowLeft': movePlayer(currentPlayer, -1, 0); break;
+                    case 'ArrowRight': movePlayer(currentPlayer, 1, 0); break;
                 }
             });
 
@@ -595,11 +750,40 @@
                 const dy = touchEndY - touchStartY;
 
                 if (Math.abs(dx) > Math.abs(dy)) {
-                    movePlayer(dx > 0 ? 1 : -1, 0);
+                    movePlayer(currentPlayer, dx > 0 ? 1 : -1, 0);
                 } else {
-                    movePlayer(0, dy > 0 ? 1 : -1);
+                    movePlayer(currentPlayer, 0, dy > 0 ? 1 : -1);
                 }
             });
+
+            // Simulate other players joining and moving
+            function simulateOtherPlayers() {
+                setInterval(() => {
+                    if (Object.keys(players).length < 3) {
+                        const newPlayer = {
+                            id: Math.random().toString(36).substr(2, 9),
+                            name: `Player${Math.floor(Math.random() * 1000)}`,
+                            position: { x: Math.floor(Math.random() * 10), y: Math.floor(Math.random() * 10) },
+                            score: 0
+                        };
+                        broadcastMessage({type: 'newPlayer', player: newPlayer});
+                    }
+
+                    for (let id in players) {
+                        if (id !== currentPlayer.id) {
+                            const player = players[id];
+                            const dx = Math.floor(Math.random() * 3) - 1;
+                            const dy = Math.floor(Math.random() * 3) - 1;
+                            movePlayer(player, dx, dy);
+                        }
+                    }
+                }, 2000);
+            }
+
+            simulateOtherPlayers();
+
+            // Announce current player
+            socket.send(JSON.stringify({type: 'newPlayer', player: currentPlayer}));
         });
         </script>
     </div>
