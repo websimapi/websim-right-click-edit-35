@@ -283,19 +283,24 @@
 
 <div id="feature3-frame" class="feature-frame" onclick="handleFrameClick(event, this)">
     <div id="feature3-html" class="feature-content" onclick="handleContentClick(event, this)">
-        <h2>Feature 3: Improved Template</h2>
-        <p>Both copy triggers are now integrated into the corners! Hover in either top corner to see them.</p>
+        <h2>Test Feature</h2>
+        <p>This is a test edit for Feature 3.</p>
     </div>
-    <div id="feature3-css" class="corner-button copy-css" onclick="copyToClipboard('feature3-css', 'css')">
+    <div id="feature3-css" class="corner-button copy-css" onclick="showDropdown(event, 'feature3-css', 'css')">
         CSS
         <style>
-        /* CSS content here */
+        /* Test CSS */
+        #feature3-frame {
+            background-color: #e0e0e0;
+            border: 2px dashed #666;
+        }
         </style>
     </div>
-    <div id="feature3-js" class="corner-button copy-js" onclick="copyToClipboard('feature3-js', 'js')">
+    <div id="feature3-js" class="corner-button copy-js" onclick="showDropdown(event, 'feature3-js', 'js')">
         JS
         <script>
-        // JavaScript content here
+        // Test JavaScript
+        console.log("This is a test edit for Feature 3");
         </script>
     </div>
 </div>
@@ -397,19 +402,24 @@
 
 <div id="feature9-frame" class="feature-frame" onclick="handleFrameClick(event, this)">
     <div id="feature9-html" class="feature-content" onclick="handleContentClick(event, this)">
-        <h2>Feature 9: Improved Template</h2>
-        <p>Both copy triggers are now integrated into the corners! Hover in either top corner to see them.</p>
+        <h2>Test Feature</h2>
+        <p>This is a test edit for Feature 9.</p>
     </div>
-    <div id="feature9-css" class="corner-button copy-css" onclick="copyToClipboard('feature9-css', 'css')">
+    <div id="feature9-css" class="corner-button copy-css" onclick="showDropdown(event, 'feature9-css', 'css')">
         CSS
         <style>
-        /* CSS content here */
+        /* Test CSS */
+        #feature9-frame {
+            background-color: #f0f0f0;
+            border: 2px solid #333;
+        }
         </style>
     </div>
-    <div id="feature9-js" class="corner-button copy-js" onclick="copyToClipboard('feature9-js', 'js')">
+    <div id="feature9-js" class="corner-button copy-js" onclick="showDropdown(event, 'feature9-js', 'js')">
         JS
         <script>
-        // JavaScript content here
+        // Test JavaScript
+        console.log("This is a test edit for Feature 9");
         </script>
     </div>
 </div>
