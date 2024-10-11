@@ -263,7 +263,7 @@
 </div>
 </div>
 </div>
-</div>
+
 <div id="feature2-parent-frame" class="feature-parent-frame" onclick="handleFrameClick(event, this)">
 <div id="feature2-frame" class="feature-frame" onclick="handleFrameClick(event, this)">
     <div id="feature2-html" class="feature-content" onclick="handleContentClick(event, this)">
@@ -479,6 +479,10 @@
         background-color: #ff6b6b;
     }
 
+    .toggle-drag {
+        background-color: #9c27b0; /* Unique color for Toggle Drag Mode */
+    }
+
     .hidden {
         display: none !important;
     }
@@ -490,11 +494,21 @@
 
     #toggleDragMode {
         margin-top: 15px;
-        background-color: #ff6b6b;
+        background-color: #9c27b0; /* Match the Toggle Drag Mode button color */
+        border: none;
+        color: white;
+        padding: 3px 6px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 10px;
+        cursor: pointer;
+        border-radius: 0;
+        transition: opacity 0.3s;
     }
 
     #toggleDragMode:hover {
-        background-color: #ff4757;
+        opacity: 0.8;
     }
 
     .draggable {
