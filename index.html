@@ -1,4 +1,5 @@
 <!DOCTYPE html><html><head><base href="right_click::edit"><title>Right Click :: Edit</title></head><body>
+<div id="feature1-parent-frame" class="feature-parent-frame" onclick="handleFrameClick(event, this)">
 <div id="feature1-frame" class="feature-frame" onclick="handleFrameClick(event, this)">
     <div id="feature1-html" class="feature-content" onclick="handleContentClick(event, this)">
         <h2>Feature 1: Core</h2>
@@ -261,7 +262,9 @@
     </script>
 </div>
 </div>
-
+</div>
+</div>
+<div id="feature2-parent-frame" class="feature-parent-frame" onclick="handleFrameClick(event, this)">
 <div id="feature2-frame" class="feature-frame" onclick="handleFrameClick(event, this)">
     <div id="feature2-html" class="feature-content" onclick="handleContentClick(event, this)">
         <h2>Feature 2: Improved Template</h2>
@@ -280,175 +283,28 @@
         </script>
     </div>
 </div>
-
+</div>
+<div id="feature3-parent-frame" class="feature-parent-frame" onclick="handleFrameClick(event, this)">
 <div id="feature3-frame" class="feature-frame" onclick="handleFrameClick(event, this)">
     <div id="feature3-html" class="feature-content" onclick="handleContentClick(event, this)">
-        <h2>Multiplayer Game Chat</h2>
-        <div id="chat-container">
-            <div id="chat-messages"></div>
-            <div id="chat-input">
-                <input type="text" id="message-input" placeholder="Type your message...">
-                <button id="send-button">Send</button>
-            </div>
-        </div>
+        <h2>Feature 3: Improved Template</h2>
+        <p>Both copy triggers are now integrated into the corners! Hover in either top corner to see them.</p>
     </div>
     <div id="feature3-css" class="corner-button copy-css" onclick="copyToClipboard('feature3-css', 'css')">
         CSS
         <style>
-        #chat-container {
-            width: 100%;
-            height: 300px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            display: flex;
-            flex-direction: column;
-        }
-
-        #chat-messages {
-            flex-grow: 1;
-            overflow-y: auto;
-            padding: 10px;
-            background-color: #f9f9f9;
-        }
-
-        #chat-input {
-            display: flex;
-            padding: 10px;
-            background-color: #eee;
-        }
-
-        #message-input {
-            flex-grow: 1;
-            padding: 5px;
-            border: 1px solid #ccc;
-            border-radius: 3px;
-        }
-
-        #send-button {
-            margin-left: 10px;
-            padding: 5px 15px;
-            background-color: #4CAF50;
-            color: white;
-            border: none;
-            border-radius: 3px;
-            cursor: pointer;
-        }
-
-        #send-button:hover {
-            background-color: #45a049;
-        }
-
-        .message {
-            margin-bottom: 10px;
-            padding: 5px 10px;
-            border-radius: 5px;
-        }
-
-        .message.self {
-            background-color: #e1f5fe;
-            align-self: flex-end;
-        }
-
-        .message.other {
-            background-color: #f0f0f0;
-            align-self: flex-start;
-        }
-
-        .username {
-            font-weight: bold;
-            margin-right: 5px;
-        }
+        /* CSS content here */
         </style>
     </div>
     <div id="feature3-js" class="corner-button copy-js" onclick="copyToClipboard('feature3-js', 'js')">
         JS
         <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const chatMessages = document.getElementById('chat-messages');
-            const messageInput = document.getElementById('message-input');
-            const sendButton = document.getElementById('send-button');
-
-            // Simulated WebSocket connection
-            const socket = {
-                send: (message) => {
-                    // Simulate server processing and broadcasting
-                    setTimeout(() => {
-                        receiveMessage(JSON.parse(message));
-                    }, Math.random() * 1000);
-                }
-            };
-
-            let username = prompt("Enter your username:") || "Anonymous";
-
-            function addMessage(message, sender, isSelf) {
-                const messageElement = document.createElement('div');
-                messageElement.classList.add('message');
-                messageElement.classList.add(isSelf ? 'self' : 'other');
-                
-                const usernameSpan = document.createElement('span');
-                usernameSpan.classList.add('username');
-                usernameSpan.textContent = sender + ":";
-                
-                const messageContent = document.createElement('span');
-                messageContent.textContent = message;
-                
-                messageElement.appendChild(usernameSpan);
-                messageElement.appendChild(messageContent);
-                
-                chatMessages.appendChild(messageElement);
-                chatMessages.scrollTop = chatMessages.scrollHeight;
-            }
-
-            function sendMessage() {
-                const message = messageInput.value.trim();
-                if (message) {
-                    const messageObj = {
-                        sender: username,
-                        content: message
-                    };
-                    socket.send(JSON.stringify(messageObj));
-                    addMessage(message, username, true);
-                    messageInput.value = '';
-                }
-            }
-
-            function receiveMessage(messageObj) {
-                if (messageObj.sender !== username) {
-                    addMessage(messageObj.content, messageObj.sender, false);
-                }
-            }
-
-            sendButton.addEventListener('click', sendMessage);
-            messageInput.addEventListener('keypress', (e) => {
-                if (e.key === 'Enter') {
-                    sendMessage();
-                }
-            });
-
-            // Simulate other users joining and sending messages
-            const otherUsers = ['Alice', 'Bob', 'Charlie'];
-            const randomMessages = [
-                "Hello everyone!",
-                "How's it going?",
-                "Nice to meet you all!",
-                "What's new?",
-                "Great game, isn't it?"
-            ];
-
-            function simulateOtherUsers() {
-                setInterval(() => {
-                    const randomUser = otherUsers[Math.floor(Math.random() * otherUsers.length)];
-                    const randomMessage = randomMessages[Math.floor(Math.random() * randomMessages.length)];
-                    receiveMessage({sender: randomUser, content: randomMessage});
-                }, 5000 + Math.random() * 5000);
-            }
-
-            simulateOtherUsers();
-        });
+        // JavaScript content here
         </script>
     </div>
 </div>
-
+</div>
+<div id="feature4-parent-frame" class="feature-parent-frame" onclick="handleFrameClick(event, this)">
 <div id="feature4-frame" class="feature-frame" onclick="handleFrameClick(event, this)">
     <div id="feature4-html" class="feature-content" onclick="handleContentClick(event, this)">
         <h2>Feature 4: Improved Template</h2>
@@ -467,7 +323,8 @@
         </script>
     </div>
 </div>
-
+</div>
+<div id="feature5-parent-frame" class="feature-parent-frame" onclick="handleFrameClick(event, this)">
 <div id="feature5-frame" class="feature-frame" onclick="handleFrameClick(event, this)">
     <div id="feature5-html" class="feature-content" onclick="handleContentClick(event, this)">
         <h2>Feature 5: Improved Template</h2>
@@ -486,7 +343,8 @@
         </script>
     </div>
 </div>
-
+</div>
+<div id="feature6-parent-frame" class="feature-parent-frame" onclick="handleFrameClick(event, this)">
 <div id="feature6-frame" class="feature-frame" onclick="handleFrameClick(event, this)">
     <div id="feature6-html" class="feature-content" onclick="handleContentClick(event, this)">
         <h2>Feature 6: Improved Template</h2>
@@ -505,7 +363,8 @@
         </script>
     </div>
 </div>
-
+</div>
+<div id="feature7-parent-frame" class="feature-parent-frame" onclick="handleFrameClick(event, this)">
 <div id="feature7-frame" class="feature-frame" onclick="handleFrameClick(event, this)">
     <div id="feature7-html" class="feature-content" onclick="handleContentClick(event, this)">
         <h2>Feature 7: Improved Template</h2>
@@ -524,7 +383,8 @@
         </script>
     </div>
 </div>
-
+</div>
+<div id="feature8-parent-frame" class="feature-parent-frame" onclick="handleFrameClick(event, this)">
 <div id="feature8-frame" class="feature-frame" onclick="handleFrameClick(event, this)">
     <div id="feature8-html" class="feature-content" onclick="handleContentClick(event, this)">
         <h2>Feature 8: Improved Template</h2>
@@ -543,252 +403,28 @@
         </script>
     </div>
 </div>
-
+</div>
+<div id="feature9-parent-frame" class="feature-parent-frame" onclick="handleFrameClick(event, this)">
 <div id="feature9-frame" class="feature-frame" onclick="handleFrameClick(event, this)">
     <div id="feature9-html" class="feature-content" onclick="handleContentClick(event, this)">
-        <h2>Multiplayer Game Screen</h2>
-        <div id="game-container">
-            <div id="game-grid"></div>
-            <div id="player-info">
-                <span id="player-name">Player 1</span>
-                <span id="player-score">Score: 0</span>
-            </div>
-            <div id="other-players"></div>
-        </div>
+        <h2>Feature 9: Improved Template</h2>
+        <p>Both copy triggers are now integrated into the corners! Hover in either top corner to see them.</p>
     </div>
     <div id="feature9-css" class="corner-button copy-css" onclick="copyToClipboard('feature9-css', 'css')">
         CSS
         <style>
-        #game-container {
-            width: 100%;
-            max-width: 600px;
-            margin: 0 auto;
-        }
-
-        #game-grid {
-            display: grid;
-            grid-template-columns: repeat(10, 1fr);
-            grid-gap: 2px;
-            background-color: #ddd;
-            padding: 10px;
-            border-radius: 5px;
-        }
-
-        .grid-cell {
-            width: 100%;
-            padding-bottom: 100%; /* Creates a square aspect ratio */
-            background-color: #fff;
-            position: relative;
-        }
-
-        .player-sprite {
-            position: absolute;
-            width: 80%;
-            height: 80%;
-            top: 10%;
-            left: 10%;
-            background-size: contain;
-            background-repeat: no-repeat;
-            background-position: center;
-            transition: all 0.3s ease;
-        }
-
-        #player-info {
-            display: flex;
-            justify-content: space-between;
-            margin-top: 10px;
-            font-weight: bold;
-        }
-
-        #other-players {
-            margin-top: 10px;
-        }
-
-        .other-player {
-            display: inline-block;
-            margin-right: 10px;
-            padding: 5px;
-            background-color: #f0f0f0;
-            border-radius: 3px;
-        }
+        /* CSS content here */
         </style>
     </div>
     <div id="feature9-js" class="corner-button copy-js" onclick="copyToClipboard('feature9-js', 'js')">
         JS
         <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const gameGrid = document.getElementById('game-grid');
-            const playerName = document.getElementById('player-name');
-            const playerScore = document.getElementById('player-score');
-            const otherPlayersContainer = document.getElementById('other-players');
-
-            let players = {};
-            let currentPlayer = {
-                id: Math.random().toString(36).substr(2, 9),
-                name: `Player${Math.floor(Math.random() * 1000)}`,
-                position: { x: 0, y: 0 },
-                score: 0
-            };
-
-            // Simulated WebSocket connection
-            const socket = {
-                send: (message) => {
-                    // Simulate server processing and broadcasting
-                    setTimeout(() => {
-                        broadcastMessage(JSON.parse(message));
-                    }, Math.random() * 100);
-                }
-            };
-
-            function createGrid() {
-                for (let i = 0; i < 100; i++) {
-                    const cell = document.createElement('div');
-                    cell.classList.add('grid-cell');
-                    gameGrid.appendChild(cell);
-                }
-            }
-
-            function createPlayerSprite(player) {
-                const sprite = document.createElement('div');
-                sprite.classList.add('player-sprite');
-                sprite.id = `player-${player.id}`;
-                sprite.style.backgroundImage = `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='45' fill='%23${Math.floor(Math.random()*16777215).toString(16)}'/%3E%3Cpath d='M30 70 Q50 90 70 70' stroke='%23FFF' stroke-width='5' fill='none'/%3E%3Ccircle cx='35' cy='40' r='5' fill='%23FFF'/%3E%3Ccircle cx='65' cy='40' r='5' fill='%23FFF'/%3E%3C/svg%3E")`;
-                return sprite;
-            }
-
-            function updatePlayerPosition(player) {
-                const sprite = document.getElementById(`player-${player.id}`);
-                if (sprite) {
-                    const cell = gameGrid.children[player.position.y * 10 + player.position.x];
-                    cell.appendChild(sprite);
-                }
-            }
-
-            function movePlayer(player, dx, dy) {
-                const newX = Math.max(0, Math.min(9, player.position.x + dx));
-                const newY = Math.max(0, Math.min(9, player.position.y + dy));
-                
-                if (newX !== player.position.x || newY !== player.position.y) {
-                    player.position = { x: newX, y: newY };
-                    player.score++;
-                    updatePlayerPosition(player);
-                    updateScoreDisplay();
-                    socket.send(JSON.stringify({type: 'playerMove', player: currentPlayer}));
-                }
-            }
-
-            function updateScoreDisplay() {
-                playerScore.textContent = `Score: ${currentPlayer.score}`;
-            }
-
-            function updateOtherPlayersDisplay() {
-                otherPlayersContainer.innerHTML = '';
-                for (let id in players) {
-                    if (id !== currentPlayer.id) {
-                        const playerDiv = document.createElement('div');
-                        playerDiv.classList.add('other-player');
-                        playerDiv.textContent = `${players[id].name}: ${players[id].score}`;
-                        otherPlayersContainer.appendChild(playerDiv);
-                    }
-                }
-            }
-
-            function broadcastMessage(message) {
-                switch(message.type) {
-                    case 'playerMove':
-                        const movedPlayer = message.player;
-                        if (movedPlayer.id !== currentPlayer.id) {
-                            players[movedPlayer.id] = movedPlayer;
-                            updatePlayerPosition(movedPlayer);
-                            updateOtherPlayersDisplay();
-                        }
-                        break;
-                    case 'newPlayer':
-                        if (message.player.id !== currentPlayer.id) {
-                            players[message.player.id] = message.player;
-                            const newSprite = createPlayerSprite(message.player);
-                            gameGrid.appendChild(newSprite);
-                            updatePlayerPosition(message.player);
-                            updateOtherPlayersDisplay();
-                        }
-                        break;
-                }
-            }
-
-            createGrid();
-            const currentSprite = createPlayerSprite(currentPlayer);
-            gameGrid.appendChild(currentSprite);
-            updatePlayerPosition(currentPlayer);
-            playerName.textContent = currentPlayer.name;
-            updateScoreDisplay();
-
-            // Keyboard controls
-            document.addEventListener('keydown', (e) => {
-                switch(e.key) {
-                    case 'ArrowUp': movePlayer(currentPlayer, 0, -1); break;
-                    case 'ArrowDown': movePlayer(currentPlayer, 0, 1); break;
-                    case 'ArrowLeft': movePlayer(currentPlayer, -1, 0); break;
-                    case 'ArrowRight': movePlayer(currentPlayer, 1, 0); break;
-                }
-            });
-
-            // Touch controls for mobile
-            let touchStartX, touchStartY;
-            gameGrid.addEventListener('touchstart', (e) => {
-                touchStartX = e.touches[0].clientX;
-                touchStartY = e.touches[0].clientY;
-            });
-
-            gameGrid.addEventListener('touchmove', (e) => {
-                e.preventDefault(); // Prevent scrolling
-            });
-
-            gameGrid.addEventListener('touchend', (e) => {
-                const touchEndX = e.changedTouches[0].clientX;
-                const touchEndY = e.changedTouches[0].clientY;
-                const dx = touchEndX - touchStartX;
-                const dy = touchEndY - touchStartY;
-
-                if (Math.abs(dx) > Math.abs(dy)) {
-                    movePlayer(currentPlayer, dx > 0 ? 1 : -1, 0);
-                } else {
-                    movePlayer(currentPlayer, 0, dy > 0 ? 1 : -1);
-                }
-            });
-
-            // Simulate other players joining and moving
-            function simulateOtherPlayers() {
-                setInterval(() => {
-                    if (Object.keys(players).length < 3) {
-                        const newPlayer = {
-                            id: Math.random().toString(36).substr(2, 9),
-                            name: `Player${Math.floor(Math.random() * 1000)}`,
-                            position: { x: Math.floor(Math.random() * 10), y: Math.floor(Math.random() * 10) },
-                            score: 0
-                        };
-                        broadcastMessage({type: 'newPlayer', player: newPlayer});
-                    }
-
-                    for (let id in players) {
-                        if (id !== currentPlayer.id) {
-                            const player = players[id];
-                            const dx = Math.floor(Math.random() * 3) - 1;
-                            const dy = Math.floor(Math.random() * 3) - 1;
-                            movePlayer(player, dx, dy);
-                        }
-                    }
-                }, 2000);
-            }
-
-            simulateOtherPlayers();
-
-            // Announce current player
-            socket.send(JSON.stringify({type: 'newPlayer', player: currentPlayer}));
-        });
+        // JavaScript content here
         </script>
     </div>
 </div>
-
+</div>
+<div id="feature10-parent-frame" class="feature-parent-frame" onclick="handleFrameClick(event, this)">
 <div id="feature10-frame" class="feature-frame" onclick="handleFrameClick(event, this)" style="left: 27.7969px; top: 146px; width: 297px; height: 169px;">
     <div id="feature10-html" class="feature-content" onclick="handleContentClick(event, this)">
     <div class="toggle-buttons">
@@ -1415,6 +1051,6 @@
         </script>
     </div>
 </div>
-
+</div>
 <script defer src="https://static.cloudflareinsights.com/beacon.min.js/v8c78df7c7c0f484497ecbca7046644da1771523124516" integrity="sha512-8DS7rgIrAmghBFwoOTujcf6D9rXvH8xm8JQ1Ja01h9QX8EzXldiszufYa4IFfKdLUKTTrnSFXLDkUEOTrZQ8Qg==" data-cf-beacon='{"version":"2024.11.0","token":"4c6229722a6346bc8eb5cb0e5eae5d41","server_timing":{"name":{"cfCacheStatus":true,"cfEdge":true,"cfExtPri":true,"cfL4":true,"cfOrigin":true,"cfSpeedBrain":true},"location_startswith":null}}' crossorigin="anonymous"></script>
 </body></html>
