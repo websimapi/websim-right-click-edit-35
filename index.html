@@ -267,170 +267,19 @@
 <div id="feature2-parent-frame" class="feature-parent-frame" onclick="handleFrameClick(event, this)">
 <div id="feature2-frame" class="feature-frame" onclick="handleFrameClick(event, this)">
     <div id="feature2-html" class="feature-content" onclick="handleContentClick(event, this)">
-        <h2>Tower Defense Game Lobby</h2>
-        <div id="lobby-container">
-            <div id="player-list">
-                <h3>Connected Players</h3>
-                <ul id="players"></ul>
-            </div>
-            <div id="game-options">
-                <h3>Game Options</h3>
-                <button id="start-game">Start Game</button>
-                <select id="difficulty">
-                    <option value="easy">Easy</option>
-                    <option value="medium">Medium</option>
-                    <option value="hard">Hard</option>
-                </select>
-            </div>
-            <div id="chat-box">
-                <h3>Lobby Chat</h3>
-                <div id="chat-messages"></div>
-                <input type="text" id="chat-input" placeholder="Type your message...">
-                <button id="send-message">Send</button>
-            </div>
-        </div>
+        <h2>Feature 2: Improved Template</h2>
+        <p>Both copy triggers are now integrated into the corners! Hover in either top corner to see them.</p>
     </div>
     <div id="feature2-css" class="corner-button copy-css" onclick="copyToClipboard('feature2-css', 'css')">
     CSS
     <style>
-        #lobby-container {
-            display: flex;
-            justify-content: space-between;
-            padding: 20px;
-            background-color: #f0f0f0;
-            border-radius: 10px;
-        }
-
-        #player-list, #game-options, #chat-box {
-            flex: 1;
-            margin: 0 10px;
-            background-color: white;
-            padding: 15px;
-            border-radius: 5px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-        }
-
-        h2, h3 {
-            color: #333;
-            margin-top: 0;
-        }
-
-        ul#players {
-            list-style-type: none;
-            padding: 0;
-        }
-
-        ul#players li {
-            margin-bottom: 5px;
-        }
-
-        #chat-messages {
-            height: 200px;
-            overflow-y: auto;
-            border: 1px solid #ddd;
-            padding: 10px;
-            margin-bottom: 10px;
-        }
-
-        #chat-input {
-            width: calc(100% - 70px);
-            padding: 5px;
-        }
-
-        #send-message {
-            width: 60px;
-        }
-
-        button, select {
-            margin: 5px 0;
-            padding: 5px 10px;
-            cursor: pointer;
-        }
-
-        #start-game {
-            background-color: #4CAF50;
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            text-align: center;
-            text-decoration: none;
-            display: inline-block;
-            font-size: 16px;
-            margin: 4px 2px;
-            transition-duration: 0.4s;
-            cursor: pointer;
-        }
-
-        #start-game:hover {
-            background-color: #45a049;
-        }
+    /* CSS content here */
     </style>
-    </div>
+</div>
     <div id="feature2-js" class="corner-button copy-js" onclick="copyToClipboard('feature2-js', 'js')">
         JS
         <script>
-        const room = new WebsimSocket();
-        const playerList = document.getElementById('players');
-        const chatMessages = document.getElementById('chat-messages');
-        const chatInput = document.getElementById('chat-input');
-        const sendMessageBtn = document.getElementById('send-message');
-        const startGameBtn = document.getElementById('start-game');
-        const difficultySelect = document.getElementById('difficulty');
-
-        function updatePlayerList() {
-            playerList.innerHTML = '';
-            Object.entries(room.party.peers).forEach(([clientId, peer]) => {
-                const li = document.createElement('li');
-                li.textContent = peer.username;
-                playerList.appendChild(li);
-            });
-        }
-
-        function addChatMessage(username, message) {
-            const messageElement = document.createElement('div');
-            messageElement.textContent = `${username}: ${message}`;
-            chatMessages.appendChild(messageElement);
-            chatMessages.scrollTop = chatMessages.scrollHeight;
-        }
-
-        room.onmessage = (event) => {
-            const data = event.data;
-            switch (data.type) {
-                case "connected":
-                case "disconnected":
-                    updatePlayerList();
-                    break;
-                case "chat":
-                    addChatMessage(data.username, data.message);
-                    break;
-                case "startGame":
-                    window.location.href = "game.html";
-                    break;
-            }
-        };
-
-        room.onPeersChanged = updatePlayerList;
-
-        sendMessageBtn.onclick = () => {
-            const message = chatInput.value.trim();
-            if (message) {
-                room.send({
-                    type: "chat",
-                    message: message
-                });
-                chatInput.value = '';
-            }
-        };
-
-        startGameBtn.onclick = () => {
-            room.send({
-                type: "startGame",
-                difficulty: difficultySelect.value
-            });
-        };
-
-        // Initial player list update
-        updatePlayerList();
+        // JavaScript content here
         </script>
     </div>
 </div>
@@ -458,223 +307,19 @@
 <div id="feature4-parent-frame" class="feature-parent-frame" onclick="handleFrameClick(event, this)">
 <div id="feature4-frame" class="feature-frame" onclick="handleFrameClick(event, this)">
     <div id="feature4-html" class="feature-content" onclick="handleContentClick(event, this)">
-        <div id="game-container">
-            <canvas id="game-canvas"></canvas>
-            <div id="game-ui">
-                <div id="player-info">
-                    <span id="player-name"></span>
-                    <span id="player-money">Money: $100</span>
-                    <span id="player-lives">Lives: 20</span>
-                </div>
-                <div id="tower-selection">
-                    <button class="tower-btn" data-tower="basic">Basic Tower ($50)</button>
-                    <button class="tower-btn" data-tower="sniper">Sniper Tower ($100)</button>
-                    <button class="tower-btn" data-tower="aoe">AoE Tower ($150)</button>
-                </div>
-                <div id="game-messages"></div>
-            </div>
-        </div>
+        <h2>Feature 4: Improved Template</h2>
+        <p>Both copy triggers are now integrated into the corners! Hover in either top corner to see them.</p>
     </div>
     <div id="feature4-css" class="corner-button copy-css" onclick="copyToClipboard('feature4-css', 'css')">
         CSS
         <style>
-            #game-container {
-                position: relative;
-                width: 100%;
-                height: 600px;
-                background-color: #f0f0f0;
-                border-radius: 10px;
-                overflow: hidden;
-            }
-
-            #game-canvas {
-                position: absolute;
-                top: 0;
-                left: 0;
-                width: 100%;
-                height: 100%;
-            }
-
-            #game-ui {
-                position: absolute;
-                top: 0;
-                left: 0;
-                width: 100%;
-                padding: 10px;
-                box-sizing: border-box;
-                display: flex;
-                justify-content: space-between;
-                align-items: flex-start;
-            }
-
-            #player-info {
-                background-color: rgba(0, 0, 0, 0.7);
-                color: white;
-                padding: 10px;
-                border-radius: 5px;
-            }
-
-            #player-info span {
-                margin-right: 15px;
-            }
-
-            #tower-selection {
-                display: flex;
-                flex-direction: column;
-            }
-
-            .tower-btn {
-                margin: 5px 0;
-                padding: 5px 10px;
-                cursor: pointer;
-                background-color: #4CAF50;
-                color: white;
-                border: none;
-                border-radius: 3px;
-            }
-
-            .tower-btn:hover {
-                background-color: #45a049;
-            }
-
-            #game-messages {
-                position: absolute;
-                bottom: 10px;
-                left: 50%;
-                transform: translateX(-50%);
-                background-color: rgba(0, 0, 0, 0.7);
-                color: white;
-                padding: 10px;
-                border-radius: 5px;
-                max-width: 80%;
-                text-align: center;
-            }
+        /* CSS content here */
         </style>
     </div>
     <div id="feature4-js" class="corner-button copy-js" onclick="copyToClipboard('feature4-js', 'js')">
         JS
         <script>
-        const room = new WebsimSocket();
-        const canvas = document.getElementById('game-canvas');
-        const ctx = canvas.getContext('2d');
-        const playerName = document.getElementById('player-name');
-        const playerMoney = document.getElementById('player-money');
-        const playerLives = document.getElementById('player-lives');
-        const gameMessages = document.getElementById('game-messages');
-
-        let gameState = {
-            players: {},
-            towers: [],
-            enemies: [],
-            projectiles: [],
-            wave: 0
-        };
-
-        function updateGameState(newState) {
-            gameState = newState;
-            drawGame();
-            updateUI();
-        }
-
-        function drawGame() {
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-            // Draw map (placeholder)
-            ctx.fillStyle = '#8fbc8f';
-            ctx.fillRect(0, 0, canvas.width, canvas.height);
-            // Draw path (placeholder)
-            ctx.fillStyle = '#8b4513';
-            ctx.fillRect(50, 0, 50, canvas.height);
-
-            // Draw towers
-            gameState.towers.forEach(tower => {
-                ctx.fillStyle = tower.color;
-                ctx.beginPath();
-                ctx.arc(tower.x, tower.y, 20, 0, Math.PI * 2);
-                ctx.fill();
-            });
-
-            // Draw enemies
-            gameState.enemies.forEach(enemy => {
-                ctx.fillStyle = enemy.color;
-                ctx.beginPath();
-                ctx.arc(enemy.x, enemy.y, 10, 0, Math.PI * 2);
-                ctx.fill();
-            });
-
-            // Draw projectiles
-            gameState.projectiles.forEach(proj => {
-                ctx.fillStyle = 'black';
-                ctx.beginPath();
-                ctx.arc(proj.x, proj.y, 5, 0, Math.PI * 2);
-                ctx.fill();
-            });
-        }
-
-        function updateUI() {
-            const currentPlayer = gameState.players[room.party.client.id];
-            if (currentPlayer) {
-                playerName.textContent = currentPlayer.username;
-                playerMoney.textContent = `Money: $${currentPlayer.money}`;
-                playerLives.textContent = `Lives: ${currentPlayer.lives}`;
-            }
-        }
-
-        function placeTower(type, x, y) {
-            room.send({
-                type: 'placeTower',
-                towerType: type,
-                x: x,
-                y: y
-            });
-        }
-
-        canvas.addEventListener('click', (event) => {
-            const rect = canvas.getBoundingClientRect();
-            const x = event.clientX - rect.left;
-            const y = event.clientY - rect.top;
-            const selectedTower = document.querySelector('.tower-btn.selected');
-            if (selectedTower) {
-                placeTower(selectedTower.dataset.tower, x, y);
-            }
-        });
-
-        document.querySelectorAll('.tower-btn').forEach(btn => {
-            btn.addEventListener('click', () => {
-                document.querySelectorAll('.tower-btn').forEach(b => b.classList.remove('selected'));
-                btn.classList.add('selected');
-            });
-        });
-
-        room.onmessage = (event) => {
-            const data = event.data;
-            switch (data.type) {
-                case 'gameState':
-                    updateGameState(data.state);
-                    break;
-                case 'gameMessage':
-                    showGameMessage(data.message);
-                    break;
-            }
-        };
-
-        function showGameMessage(message) {
-            gameMessages.textContent = message;
-            setTimeout(() => {
-                gameMessages.textContent = '';
-            }, 3000);
-        }
-
-        // Initial setup
-        canvas.width = canvas.clientWidth;
-        canvas.height = canvas.clientHeight;
-        drawGame();
-
-        // Game loop (for smoother animations)
-        function gameLoop() {
-            drawGame();
-            requestAnimationFrame(gameLoop);
-        }
-        gameLoop();
+        // JavaScript content here
         </script>
     </div>
 </div>
@@ -1184,7 +829,12 @@
         );
 
         function showDropdown(event, elementId, type) {
-            event.stopPropagation();
+            event.preventDefault(); // Prevent default right-click menu
+            const existingDropdown = document.querySelector('.dropdown');
+            if (existingDropdown) {
+                document.body.removeChild(existingDropdown);
+            }
+            
             const dropdown = document.createElement('div');
             dropdown.className = 'dropdown';
             dropdown.innerHTML = `
@@ -1192,7 +842,6 @@
                 <button onclick="handleDropdownAction('${elementId}', '${type}', 'copy')">Copy</button>
             `;
             
-            const rect = event.target.getBoundingClientRect();
             dropdown.style.left = `${event.clientX}px`;
             dropdown.style.top = `${event.clientY}px`;
             
@@ -1371,6 +1020,37 @@
                 }, 300);
             }, 3000);
         }
+
+        // Add context menu handlers at the end of the script
+        document.querySelectorAll('.feature-frame').forEach(frame => {
+            frame.addEventListener('contextmenu', (event) => {
+                showDropdown(event, frame.id, 'all');
+            });
+            
+            const contentDiv = frame.querySelector('.feature-content');
+            if (contentDiv) {
+                contentDiv.addEventListener('contextmenu', (event) => {
+                    showDropdown(event, contentDiv.id, 'html');
+                    event.stopPropagation();
+                });
+            }
+            
+            const cssButton = frame.querySelector('.copy-css');
+            if (cssButton) {
+                cssButton.addEventListener('contextmenu', (event) => {
+                    showDropdown(event, cssButton.id, 'css');
+                    event.stopPropagation();
+                });
+            }
+            
+            const jsButton = frame.querySelector('.copy-js');
+            if (jsButton) {
+                jsButton.addEventListener('contextmenu', (event) => {
+                    showDropdown(event, jsButton.id, 'js');
+                    event.stopPropagation();
+                });
+            }
+        });
 
         // Modify the handleFrameClick function to show dropdown for ALL
         function handleFrameClick(event, element) {
